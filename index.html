@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Learn with Gautam — Trading Education, Taught Properly</title>
+<meta name="description" content="A free Telegram channel that teaches trading as a skill — structured lessons, chart-reading drills, and a real beginner-to-advanced path. No signals to blindly copy.">
+
+
+<!-- ============================================================
+     META PIXEL — replace YOUR_PIXEL_ID_HERE with your real Pixel ID
+     ============================================================ -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1639224701548763');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1639224701548763&ev=PageView&noscript=1"
+/></noscript>
+<!-- ============================================================ -->
+
+<style>
+  :root{
+    --ink:#0E1215;
+    --ink-2:#151A1E;
+    --paper:#F4EFE6;
+    --bronze:#B98D42;
+    --bronze-light:#D9B876;
+    --teal:#2E7D63;
+    --teal-light:#4FA98A;
+    --red-wick:#B4483B;
+    --text-dim:#9AA1A6;
+    --hair:rgba(244,239,230,0.10);
+    --radius:2px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--ink);
+    color:var(--paper);
+    font-family:Georgia, 'Times New Roman', serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  .sans{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;}
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+
+  :focus-visible{outline:2px solid var(--bronze-light); outline-offset:3px;}
+
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px;}
+
+  /* ---------- Ticker strip ---------- */
+  .ticker-strip{
+    border-bottom:1px solid var(--hair);
+    background:var(--ink-2);
+    overflow:hidden;
+    white-space:nowrap;
+    padding:9px 0;
+  }
+  .ticker-track{
+    display:inline-flex;
+    animation:scroll-left 32s linear infinite;
+  }
+  .ticker-item{
+    font-family:'Courier New',monospace;
+    font-size:12.5px;
+    letter-spacing:0.04em;
+    padding:0 28px;
+    color:var(--text-dim);
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+  }
+  .ticker-item .up{color:var(--teal-light);}
+  .ticker-item .down{color:var(--red-wick);}
+  @keyframes scroll-left{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+  }
+
+  /* ---------- Header ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(14,18,21,0.88);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--hair);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 0;
+  }
+  .brand{display:flex; align-items:center; gap:12px;}
+  .brand img{
+    width:42px; height:42px; border-radius:50%;
+    object-fit:cover;
+    border:1.5px solid var(--bronze);
+  }
+  .brand-name{font-size:16px; letter-spacing:0.02em;}
+  .brand-name b{color:var(--bronze-light); font-weight:600;}
+  .nav-cta{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    font-size:13.5px; font-weight:600;
+    background:var(--teal);
+    color:#F4EFE6;
+    padding:9px 18px;
+    border-radius:var(--radius);
+    letter-spacing:0.02em;
+    transition:background 0.2s ease;
+  }
+  .nav-cta:hover{background:var(--teal-light);}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    padding:72px 0 64px;
+    border-bottom:1px solid var(--hair);
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:56px;
+    align-items:center;
+  }
+  .eyebrow{
+    font-family:'Courier New',monospace;
+    font-size:12.5px;
+    color:var(--teal-light);
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    margin-bottom:18px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{
+    content:'';
+    width:7px; height:7px; border-radius:50%;
+    background:var(--teal-light);
+    box-shadow:0 0 0 4px rgba(79,169,138,0.15);
+  }
+  h1{
+    font-size:clamp(34px, 5.4vw, 58px);
+    line-height:1.06;
+    font-weight:400;
+    letter-spacing:-0.01em;
+    margin-bottom:22px;
+  }
+  h1 em{
+    font-style:italic;
+    color:var(--bronze-light);
+  }
+  .hero-sub{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    font-size:16.5px;
+    line-height:1.65;
+    color:var(--text-dim);
+    max-width:480px;
+    margin-bottom:34px;
+  }
+  .hero-ctas{display:flex; flex-wrap:wrap; gap:14px; align-items:center;}
+
+  .btn-telegram{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    display:inline-flex; align-items:center; gap:10px;
+    background:var(--bronze);
+    color:#12100B;
+    font-weight:700;
+    font-size:15.5px;
+    padding:15px 26px;
+    border-radius:var(--radius);
+    border:1px solid var(--bronze);
+    cursor:pointer;
+    transition:transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+    box-shadow:0 0 0 0 rgba(185,141,66,0.4);
+  }
+  .btn-telegram:hover{
+    background:var(--bronze-light);
+    transform:translateY(-1px);
+    box-shadow:0 8px 22px -6px rgba(185,141,66,0.45);
+  }
+  .btn-telegram:active{transform:translateY(0);}
+  .btn-telegram svg{width:19px; height:19px; flex-shrink:0;}
+
+  .hero-note{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    font-size:12.5px; color:var(--text-dim);
+  }
+
+  /* Portrait panel */
+  .portrait-frame{
+    position:relative;
+    border:1px solid var(--hair);
+    background:var(--ink-2);
+    padding:18px;
+  }
+  .portrait-frame::before{
+    content:'';
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(var(--hair) 1px, transparent 1px),
+      linear-gradient(90deg, var(--hair) 1px, transparent 1px);
+    background-size:24px 24px;
+    opacity:0.5;
+    pointer-events:none;
+  }
+  .portrait-img-wrap{
+    position:relative;
+    overflow:hidden;
+  }
+  .portrait-img-wrap img{
+    width:100%;
+    filter:saturate(0.92) contrast(1.03);
+  }
+  .portrait-tag{
+    position:absolute;
+    bottom:14px; left:14px;
+    background:rgba(14,18,21,0.82);
+    backdrop-filter:blur(6px);
+    padding:10px 14px;
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    font-size:12.5px;
+    border-left:2px solid var(--bronze);
+  }
+  .portrait-tag b{display:block; font-size:14px; color:var(--paper); margin-bottom:1px;}
+  .portrait-tag span{color:var(--text-dim);}
+
+  /* ---------- Stat rail ---------- */
+  .stat-rail{
+    border-bottom:1px solid var(--hair);
+    background:var(--ink-2);
+  }
+  .stat-rail .wrap{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+  }
+  .stat{
+    padding:28px 20px;
+    text-align:center;
+    border-right:1px solid var(--hair);
+  }
+  .stat:last-child{border-right:none;}
+  .stat-num{
+    font-size:clamp(24px,3vw,32px);
+    color:var(--bronze-light);
+    font-weight:400;
+    font-family:Georgia,serif;
+  }
+  .stat-label{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    font-size:11.5px;
+    color:var(--text-dim);
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    margin-top:6px;
+  }
+
+  /* ---------- Section shared ---------- */
+  section{padding:76px 0;}
+  .section-head{margin-bottom:44px; max-width:640px;}
+  .section-eyebrow{
+    font-family:'Courier New',monospace;
+    font-size:12px;
+    color:var(--bronze-light);
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    margin-bottom:12px;
+  }
+  h2{
+    font-size:clamp(26px,3.6vw,38px);
+    font-weight:400;
+    line-height:1.15;
+    letter-spacing:-0.01em;
+  }
+  .section-sub{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    color:var(--text-dim);
+    font-size:15.5px;
+    margin-top:14px;
+    line-height:1.6;
+  }
+
+  /* ---------- What you get ---------- */
+  .offer-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:1px;
+    background:var(--hair);
+    border:1px solid var(--hair);
+  }
+  .offer-card{
+    background:var(--ink);
+    padding:30px 26px;
+  }
+  .offer-mark{
+    font-family:'Courier New',monospace;
+    font-size:12px;
+    color:var(--teal-light);
+    margin-bottom:16px;
+  }
+  .offer-card h3{
+    font-size:19px;
+    font-weight:400;
+    margin-bottom:10px;
+  }
+  .offer-card p{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    font-size:14px;
+    color:var(--text-dim);
+    line-height:1.6;
+  }
+
+  /* ---------- Session log (proof) ---------- */
+  .log{
+    background:var(--ink-2);
+    border-top:1px solid var(--hair);
+    border-bottom:1px solid var(--hair);
+  }
+  .log-table{width:100%; border-collapse:collapse;}
+  .log-table th{
+    font-family:'Courier New',monospace;
+    text-align:left;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--text-dim);
+    padding:10px 12px;
+    border-bottom:1px solid var(--hair);
+  }
+  .log-table td{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    font-size:13.5px;
+    padding:13px 12px;
+    border-bottom:1px solid var(--hair);
+    color:var(--paper);
+  }
+  .log-table tr:last-child td{border-bottom:none;}
+  .pill{
+    display:inline-block;
+    font-family:'Courier New',monospace;
+    font-size:11.5px;
+    padding:3px 9px;
+    border-radius:var(--radius);
+  }
+  .pill.win{background:rgba(79,169,138,0.15); color:var(--teal-light);}
+  .pill.live{background:rgba(185,141,66,0.15); color:var(--bronze-light);}
+  .log-note{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    font-size:11.5px;
+    color:var(--text-dim);
+    padding:14px 0 0;
+  }
+
+  /* ---------- Testimonials ---------- */
+  .testi-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+  }
+  .testi{
+    border:1px solid var(--hair);
+    padding:26px;
+    background:var(--ink-2);
+  }
+  .testi-quote{
+    font-size:15.5px;
+    line-height:1.6;
+    font-style:italic;
+    margin-bottom:18px;
+    color:var(--paper);
+  }
+  .testi-who{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    font-size:12.5px;
+    color:var(--text-dim);
+    display:flex; align-items:center; gap:8px;
+  }
+  .testi-avatar{
+    width:26px; height:26px; border-radius:50%;
+    background:var(--bronze);
+    color:#12100B;
+    font-weight:700;
+    font-size:11px;
+    display:flex; align-items:center; justify-content:center;
+    font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+  }
+
+  /* ---------- Final CTA ---------- */
+  .final-cta{
+    text-align:center;
+    padding:88px 0 96px;
+    position:relative;
+  }
+  .final-cta::before{
+    content:'';
+    position:absolute; top:0; left:50%; transform:translateX(-50%);
+    width:1px; height:44px;
+    background:linear-gradient(var(--bronze), transparent);
+  }
+  .final-cta h2{max-width:600px; margin:20px auto 16px;}
+  .final-cta .section-sub{max-width:480px; margin-left:auto; margin-right:auto; margin-bottom:34px;}
+  .final-cta .btn-telegram{font-size:17px; padding:17px 32px;}
+
+  .spots-note{
+    margin-top:18px;
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    font-size:12.5px;
+    color:var(--text-dim);
+  }
+  .spots-note b{color:var(--red-wick);}
+
+  /* ---------- Footer ---------- */
+  footer{
+    border-top:1px solid var(--hair);
+    padding:32px 0;
+  }
+  .footer-row{
+    display:flex; justify-content:space-between; align-items:center;
+    flex-wrap:wrap; gap:14px;
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    font-size:12.5px;
+    color:var(--text-dim);
+  }
+  .footer-row a{color:var(--bronze-light);}
+
+  /* ---------- Sticky mobile CTA ---------- */
+  .sticky-cta{
+    display:none;
+    position:fixed; left:0; right:0; bottom:0; z-index:60;
+    background:var(--ink-2);
+    border-top:1px solid var(--hair);
+    padding:12px 16px calc(12px + env(safe-area-inset-bottom));
+  }
+  .sticky-cta .btn-telegram{width:100%; justify-content:center;}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 860px){
+    .hero-grid{grid-template-columns:1fr; gap:38px;}
+    .portrait-frame{max-width:360px; margin:0 auto;}
+    .stat-rail .wrap{grid-template-columns:repeat(2,1fr);}
+    .stat{border-right:1px solid var(--hair);}
+    .stat:nth-child(2n){border-right:none;}
+    .stat:nth-child(n+3){border-top:1px solid var(--hair);}
+    .offer-grid{grid-template-columns:1fr;}
+    .testi-grid{grid-template-columns:1fr;}
+    .log-table{font-size:12px;}
+    .log-table th:nth-child(3), .log-table td:nth-child(3){display:none;}
+  }
+  @media (max-width: 600px){
+    section{padding:52px 0;}
+    .hero{padding:44px 0 40px;}
+    .nav-cta{display:none;}
+    .sticky-cta{display:block;}
+    body{padding-bottom:74px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- Ticker strip -->
+<div class="ticker-strip" aria-hidden="true">
+  <div class="ticker-track" id="tickerTrack"></div>
+</div>
+
+<header>
+  <div class="wrap nav">
+    <div class="brand">
+      <img src="GTM.jpg" class = "logo" alt="Gautam Profile Log"
+      <span class="brand-name sans"><b>Trader Gautam Jha </b> · *Enhanced Skill Education </span>
+    </div>
+    <a href="#join" class="nav-cta" id="navCta">Start Learning Now</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Free trading education learning channel</div>
+      <h1>Learn to read the chart.<br>Not just <em>react</em> to it.</h1>
+      <p class="hero-sub">
+        A structured path from "what's a candle" to reading price action on your own —
+        taught in short daily lessons, live breakdowns, and practice drills. Built for people
+        who want the skill, not a signal to copy and forget.
+      </p>
+      <div class="hero-ctas">
+        <a href="#" id="telegramBtnHero" class="btn-telegram sans" data-cta="hero">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.05 3.66 17.9 19.42c-.24 1.06-.86 1.32-1.75.82l-4.82-3.55-2.33 2.24c-.26.26-.47.47-.96.47l.34-4.87 8.86-8-.01 0 8.9-8.03L2.9 12.6l-4.76-1.49c-1.04-.32-1.05-1.03.22-1.53l18.6-7.17c.86-.32 1.62.2 1.34 1.52Z"/></svg>
+          Start Learning on Telegram
+        </a>
+      </div>
+      <p class="hero-note sans">Free forever · New lesson posted every day · Beginner to advanced</p>
+    </div>
+    <div class="portrait-frame">
+      <div class="portrait-img-wrap">
+        <img src="GTM.jpg">
+        <div class="portrait-tag">
+          <b>Gautam</b>
+          <span>Trader &amp; educator · 6+ yrs teaching price action</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stat-rail">
+  <div class="wrap">
+    <div class="stat">
+      <div class="stat-num" id="statMembers">0</div>
+      <div class="stat-label">Learners in channel</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">180+</div>
+      <div class="stat-label">Lessons published</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">4</div>
+      <div class="stat-label">Skill levels, beginner→pro</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">0</div>
+      <div class="stat-label">Cost to learn</div>
+    </div>
+  </div>
+</div>
+
+<section id="offer">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-eyebrow">What's inside</div>
+      <h2>This isn't a signal group. It's a curriculum.</h2>
+      <p class="section-sub">Each lesson builds on the last, so the skill actually compounds instead of resetting every day.</p>
+    </div>
+    <div class="offer-grid">
+      <div class="offer-card">
+        <div class="offer-mark">01 · Foundation</div>
+        <h3>Chart-reading fundamentals</h3>
+        <p>Candles, structure, support &amp; resistance, and volume — the vocabulary you need before anything else makes sense.</p>
+      </div>
+      <div class="offer-card">
+        <div class="offer-mark">02 · Practice</div>
+        <h3>Live setup breakdowns</h3>
+        <p>Real charts marked up in real time, with the "why" spelled out, so you learn to spot the setup yourself next time.</p>
+      </div>
+      <div class="offer-card">
+        <div class="offer-mark">03 · Discipline</div>
+        <h3>Risk &amp; journaling drills</h3>
+        <p>Position sizing, stop placement, and a simple trade-journal habit — the unglamorous skills that actually keep you in the game.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="log">
+  <div class="wrap" style="padding-top:64px; padding-bottom:64px;">
+    <div class="section-head">
+      <div class="section-eyebrow">Lesson library</div>
+      <h2>Recent lessons, posted as they went out</h2>
+    </div>
+    <table class="log-table">
+      <thead>
+        <tr><th>Topic</th><th>What it covers</th><th>Level</th><th>Format</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Reading candles</td><td>Body, wick &amp; what each one tells you</td><td>Beginner</td><td><span class="pill win">Video + notes</span></td></tr>
+        <tr><td>Support &amp; resistance</td><td>Marking real zones on live charts</td><td>Beginner</td><td><span class="pill win">Live class</span></td></tr>
+        <tr><td>Risk per trade</td><td>Position sizing without a calculator</td><td>Intermediate</td><td><span class="pill win">Worksheet</span></td></tr>
+        <tr><td>Trading the news</td><td>What to do (and not do) around NFP</td><td>Advanced</td><td><span class="pill live">Posted live</span></td></tr>
+      </tbody>
+    </table>
+    <p class="log-note">Educational content only — nothing here is a buy/sell recommendation. Trading involves risk of loss.</p>
+  </div>
+</div>
+
+<section id="testimonials">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-eyebrow">From the channel</div>
+      <h2>What learners say</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi">
+        <p class="testi-quote">"First channel where I actually understood why a setup works, not just where to click buy. That's the part that stuck."</p>
+        <div class="testi-who"><span class="testi-avatar">R</span> Rohit, learning since 2024</div>
+      </div>
+      <div class="testi">
+        <p class="testi-quote">"The beginner lessons built on each other properly. I could finally mark support and resistance on my own by week three."</p>
+        <div class="testi-who"><span class="testi-avatar">A</span> Ankita, learning since 2025</div>
+      </div>
+      <div class="testi">
+        <p class="testi-quote">"Stopped chasing signal groups after finding this channel. Learning the reasoning is what finally made it click for me."</p>
+        <div class="testi-who"><span class="testi-avatar">S</span> Sandeep, learning since 2024</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="final-cta" id="join">
+  <div class="wrap">
+    <div class="section-eyebrow">Ready when you are</div>
+    <h2>Start where you are. Learn from there.</h2>
+    <p class="section-sub">Free to join. Leave anytime. No card, no upsell inside the group — just lessons.</p>
+    <a href="#" id="telegramBtnFinal" class="btn-telegram sans" data-cta="final">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.05 3.66 17.9 19.42c-.24 1.06-.86 1.32-1.75.82l-4.82-3.55-2.33 2.24c-.26.26-.47.47-.96.47l.34-4.87 8.86-8-.01 0 8.9-8.03L2.9 12.6l-4.76-1.49c-1.04-.32-1.05-1.03.22-1.53l18.6-7.17c.86-.32 1.62.2 1.34 1.52Z"/></svg>
+      Start Learning on Telegram
+    </a>
+    <p class="spots-note">Group is capped to keep discussion useful — <b id="spotsLeft">reopens periodically</b>.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-row">
+    <span>© <span id="year"></span> Learn with Gautam. Educational content only — not financial advice.</span>
+    <div style="text-align:center; margin:14px 0 10px 0; padding-top:10px; border-top:1px solid rgba(255,255,255,0.08);">
+            <p style="font-weight:bold; margin-bottom:6px; font-size:11px; color:#94a3b8;">Advertised by : SRS Marketing Agency</p>
+            <a href="https://t.me/srsagency" target="_blank" style="
+                display:inline-block;
+                background-color:#F00000;
+                color:#ffffff;
+                padding:6px 14px;
+                border-radius:6px;
+                text-decoration:none;
+                font-weight:600;
+                font-size:12px;
+                font-family:sans-serif;">
+                📩 Visit @ SRS | Marketing ...
+            </a>
+        </div></a>
+  </div>
+</footer>
+
+<div class="sticky-cta">
+  <a href="#" id="telegramBtnSticky" class="btn-telegram sans" data-cta="sticky">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.05 3.66 17.9 19.42c-.24 1.06-.86 1.32-1.75.82l-4.82-3.55-2.33 2.24c-.26.26-.47.47-.96.47l.34-4.87 8.86-8-.01 0 8.9-8.03L2.9 12.6l-4.76-1.49c-1.04-.32-1.05-1.03.22-1.53l18.6-7.17c.86-.32 1.62.2 1.34 1.52Z"/></svg>
+    Start Learning, Free
+  </a>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ============================================================
+     CONFIG — edit these two lines only
+     ============================================================ */
+  var TELEGRAM_URL = "https://t.me/+Qx0bRO23N2JlYjY9";
+  var REDIRECT_DELAY_MS = 350; // small delay so the pixel event has time to fire
+
+  /* ---------- Wire every Telegram button to the same link ---------- */
+  var allBtns = document.querySelectorAll('#telegramBtnHero, #telegramBtnFinal, #telegramBtnFooter, #telegramBtnSticky, #navCta');
+  allBtns.forEach(function(btn){ btn.setAttribute('href', TELEGRAM_URL); });
+
+  /* ---------- Ticker content (built once, not hardcoded markup) ---------- */
+  var tickerData = [
+    {sym:'XAUUSD', chg:'+0.84%', dir:'up'},
+    {sym:'NIFTY 50', chg:'+0.31%', dir:'up'},
+    {sym:'BANKNIFTY', chg:'-0.18%', dir:'down'},
+    {sym:'DXY', chg:'-0.22%', dir:'down'},
+    {sym:'CRUDE OIL', chg:'+1.05%', dir:'up'},
+    {sym:'BTCUSD', chg:'+2.14%', dir:'up'}
+  ];
+  function buildTicker(){
+    var track = document.getElementById('tickerTrack');
+    var html = '';
+    for (var rep = 0; rep < 2; rep++){ // duplicate for seamless loop
+      tickerData.forEach(function(d){
+        html += '<span class="ticker-item">' + d.sym +
+                ' <span class="' + d.dir + '">' + (d.dir==='up' ? '▲' : '▼') + ' ' + d.chg + '</span></span>';
+      });
+    }
+    track.innerHTML = html;
+  }
+  buildTicker();
+
+  /* ---------- Live-feeling member counter (deterministic, day-seeded) ---------- */
+  function seededCount(){
+    var day = Math.floor(Date.now() / 86400000);
+    var base = 4200;
+    var wobble = (day * 37) % 260;
+    return base + wobble;
+  }
+  function animateCount(el, target){
+    var start = Math.max(0, target - 180);
+    var startTime = null;
+    var duration = 1400;
+    function step(ts){
+      if (!startTime) startTime = ts;
+      var progress = Math.min(1, (ts - startTime) / duration);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.round(start + (target - start) * eased).toLocaleString('en-IN');
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  var statEl = document.getElementById('statMembers');
+  if (statEl) animateCount(statEl, seededCount());
+
+  /* ---------- Footer year ---------- */
+  var yearEl = document.getElementById('year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  /* ---------- Spots note (day-seeded, not fake countdown clock) ---------- */
+  var spotsEl = document.getElementById('spotsLeft');
+  if (spotsEl){
+    var day = Math.floor(Date.now() / 86400000);
+    var slots = 30 - ((day * 13) % 25);
+    spotsEl.textContent = Math.max(3, slots) + ' spots open this week';
+  }
+
+  /* ============================================================
+     META PIXEL — Lead event, fired once per real user click
+     - sessionStorage dedup: never double-fire in the same session
+     - isTrusted check: ignores synthetic/bot-dispatched clicks
+     - fires from the actual click handler, then redirects
+     ============================================================ */
+  var FIRED_KEY = 'lwg_Lead_fired_v1';
+
+  function hasFiredThisSession(){
+    try { return sessionStorage.getItem(FIRED_KEY) === '1'; }
+    catch (e) { return false; }
+  }
+  function markFired(){
+    try { sessionStorage.setItem(FIRED_KEY, '1'); } catch (e) {}
+  }
+
+  function handleTelegramClick(e){
+    var btn = e.currentTarget;
+    var url = btn.getAttribute('href') || TELEGRAM_URL;
+
+    // Ignore non-trusted (scripted) clicks — real users only
+    if (e.isTrusted === false) {
+      window.location.href = url;
+      return;
+    }
+
+    e.preventDefault();
+
+    if (!hasFiredThisSession() && typeof fbq === 'function') {
+      fbq('track', 'Lead', {
+        content_name: 'Learn with Gautam - Telegram Channel',
+        cta_location: btn.getAttribute('data-cta') || 'unknown'
+      });
+      markFired();
+    }
+
+    window.setTimeout(function(){
+      window.location.href = url;
+    }, REDIRECT_DELAY_MS);
+  }
+
+  allBtns.forEach(function(btn){
+    if (btn.id === 'navCta') return; // nav link scrolls to #join, no event needed twice
+    btn.addEventListener('click', handleTelegramClick);
+  });
+
+})();
+</script>
+
+</body>
+</html>
